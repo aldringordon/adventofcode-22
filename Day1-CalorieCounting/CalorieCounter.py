@@ -1,17 +1,22 @@
+import unittest
 
-TEST_INPUT = [
-    [1000, 2000, 3000,],
-    [4000],
-    [5000, 6000],
-    [7000, 8000, 9000],
-    [10000]
-    ]
+class TestCalorieCounter(unittest.TestCase):
 
-TEST_ANSWER = 4
-TEST_ANSWER_INDEX = TEST_ANSWER - 1
-TEST_ANSWER_AMOUNT = 24000
+    def setUp(self):
+        self.inputData = read_data("TestData.txt")
+        self.caloriesDict = count_calories(self.inputData)
 
-DATA_FILE = "Data.txt"
+    def test_answer(self):
+        test_answer = 4
+        key = max(self.caloriesDict, key=self.caloriesDict.get)
+        self.assertEqual(test_answer, key, "answer did not match")
+
+    def test_amount(self):
+        test_amount = 24000
+        value = max(self.caloriesDict.values())
+        self.assertEqual(test_amount, value, "total amount did not match")
+
+#end class
 
 def read_data(filename):
     total = []
@@ -29,39 +34,46 @@ def read_data(filename):
     return total
 
 def count_calories(inputList):
-    caloriesDict = {}
+    return dict([ (k+1, sum(v)) for k, v in enumerate(inputList) ])
 
-    for i, val in enumerate(inputList):
-        caloriesDict.update({ i+1: sum(val) })
+def main():
 
-    return caloriesDict
+    # read data
+    filename = "Data.txt"
+    inputData = read_data(filename)
 
-if __name__=="__main__":
-    inputData = read_data(DATA_FILE)
-
+    # convert
     caloriesDict = count_calories(inputData)
 
     val1 = max(caloriesDict.values())
     maxKey = max(caloriesDict, key=caloriesDict.get)
-    print(maxKey)
-    print(caloriesDict[maxKey])
-    print
+    print("key=", str(maxKey))
+    print("val=", str(caloriesDict[maxKey]))
+    print()
 
     del caloriesDict[maxKey]
 
     val2 = max(caloriesDict.values())
     maxKey = max(caloriesDict, key=caloriesDict.get)
-    print(maxKey)
-    print(caloriesDict[maxKey])
-    print
+    print("key=", str(maxKey))
+    print("val=", str(caloriesDict[maxKey]))
+    print()
 
     del caloriesDict[maxKey]
 
     val3 = max(caloriesDict.values())
     maxKey = max(caloriesDict, key=caloriesDict.get)
-    print(maxKey)
-    print(caloriesDict[maxKey])
-    print
+    print("key=", str(maxKey))
+    print("val=", str(caloriesDict[maxKey]))
+    print()
 
-    print('total:')
+    print('Total=')
     print(val1+val2+val3)
+
+if __name__=="__main__":
+
+    # tests
+    #unittest.main()
+
+    # main hacky shit
+    main()
