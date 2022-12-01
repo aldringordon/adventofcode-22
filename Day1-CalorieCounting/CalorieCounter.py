@@ -11,5 +11,15 @@ TEST_ANSWER = 4
 TEST_ANSWER_INDEX = TEST_ANSWER - 1
 TEST_ANSWER_AMOUNT = 24000
 
+def count_calories(inputList):
+    caloriesDict = {}
+
+    for i, val in enumerate(inputList):
+        print(str(i) + ' ' + str(sum(val)))
+        caloriesDict.update({ i+1: sum(val) })
+
+    return caloriesDict
+
 if __name__=="__main__":
-    print("Hello world")
+    caloriesDict = count_calories(TEST_INPUT)
+    
