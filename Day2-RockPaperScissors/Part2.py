@@ -25,7 +25,6 @@ DRAW="DRAW"
 LOSS="LOSS"
 
 def find_move(them, outcome):
-
     play = { "A": ROCK, "B": PAPER, "C": SCISS, "X": LOSS, "Y": DRAW, "Z": WIN}
 
     them = play[them]
@@ -55,15 +54,13 @@ def find_move(them, outcome):
     return move
 
 def outcome(them, me):
-
     play = { "A": ROCK, "B": PAPER, "C": SCISS}
-
     score = { ROCK: 1, PAPER: 2, SCISS: 3, LOSS: 0, DRAW: 3, WIN: 6}
 
     print()
     print(them, me)
 
-    move = find_move(them, me)
+    move = find_move(them, me) #O(1)
 
     me = move
     them = play[them]
@@ -74,7 +71,6 @@ def outcome(them, me):
 
     # Draw
     if them == me:
-        print(them, me)
         outcome = DRAW
 
     if them == ROCK:
@@ -92,6 +88,15 @@ def outcome(them, me):
     print(outcome)
     return score[outcome] + score[me]
 
+def calc_score(guide):
+    sum = 0
+    for x in guide:
+        them = x[0]     # O(1)
+        me = x[1]       # O(1)
+        sum = sum + outcome(them, me)   # O(1)
+
+    return sum
+
 def read_data(filename):
     guide = []
 
@@ -103,21 +108,14 @@ def read_data(filename):
     f.close()
     return guide
 
-def calc_score(guide):
-    sum = 0
-    for x in guide:
-        them = x[0]
-        me = x[1]
-        sum = sum + outcome(them, me)
-
-    return sum
-
+# O(2n) -> O(n)
 if __name__=="__main__":
 
-    guide = read_data("Data.txt")
+    guide = read_data("Data.txt")   # O(n)
     print(guide)
 
-    score = calc_score(guide)
+    score = calc_score(guide)       # O(n)
 
+    print()
     print("score:")
     print(score)
