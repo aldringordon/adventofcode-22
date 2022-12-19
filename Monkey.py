@@ -59,11 +59,13 @@ class Monkey():
 
         # inspect
         item = self.operation(item)
-        print('\top: ' + str(item))
+        if DEBUG:
+            print('\top: ' + str(item))
 
         # bored
         item = item//3
-        print('\tbored: ' + str(item))
+        if DEBUG:
+            print('\tbored: ' + str(item))
 
         monkey = self.test(item)
 
@@ -89,7 +91,7 @@ class Monkey():
 
         if DEBUG:
             print('\t' + str(item) + ' div by ' + str(self.test_value) + ' = ' + str(val))
-            
+
         if val == 0:
             return self.true_monkey
         return self.false_monkey
