@@ -24,7 +24,15 @@ def print_board(thing):
 def read_moves(data):
     
     head = Knot()
-    tail = Knot()
+    k1 = Knot()
+    k2 = Knot()
+    k3 = Knot()
+    k4 = Knot()
+    k5 = Knot()
+    k6 = Knot()
+    k7 = Knot()
+    k8 = Knot()
+    k9 = Knot()
 
     BOARD = [ ['.' for _ in range(15)] for _ in range(15)]
 
@@ -35,7 +43,15 @@ def read_moves(data):
             # BOARD[int(tail.y)][int(tail.x)] = '.'
 
             head.move(ins, 1)
-            tail.move_toward(head)
+            k1.move_toward(head)
+            k2.move_toward(k1)
+            k3.move_toward(k2)
+            k4.move_toward(k3)
+            k5.move_toward(k4)
+            k6.move_toward(k5)
+            k7.move_toward(k6)
+            k8.move_toward(k7)
+            k9.move_toward(k8)
 
             # BOARD[int(head.y)][int(head.x)] = 'H'
             # BOARD[int(tail.y)][int(tail.x)] = 'T'
@@ -49,8 +65,8 @@ def read_moves(data):
     
     print_board(BOARD)
     print(head.get_visited())
-    print(tail.get_visited())
-    print(len(tail.get_visited()))
+    print(k9.get_visited())
+    print(len(k9.get_visited()))
     pass
 
 def main():
