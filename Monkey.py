@@ -14,7 +14,7 @@ class Monkey():
         self.inspects = 0
 
     def __str__(self):
-        return 'Monkey [' + str(self.id) + '] inspects: ' + str(self.inspects) + ' - items: ' + str(self.items)
+        return 'Monkey [' + str(self.id) + '] inspects: ' + str(self.inspects)
     
     def mul(self, val):
         return val * self.op_val
