@@ -1,4 +1,5 @@
-from Monkey import Monkey
+from Monkey2 import Monkey
+from alive_progress import alive_bar
 
 def read_data(filename):
     data = []
@@ -46,22 +47,38 @@ def read_data(filename):
     return data
 
 def inspect(monkeys, rounds):
-    for _ in range(rounds):
-        for monk in monkeys:
-            while monk.has_items():
-                monk.inspect_next()
-                if monk.has_throwable():
-                    other, item = monk.get_throwable()
-                    monkeys[other].give_item(item)
+    with alive_bar(rounds) as bar:
+        for i in range(rounds):
+            for monk in monkeys:
+                while monk.has_items():
+                    monk.inspect_next()
+                    if monk.has_throwable():
+                        other, item = monk.get_throwable()
+                        monkeys[other].give_item(item)
+            bar()
     
     for monk in monkeys:
         print(monk)
 
 def main():
-    #data = read_data("TestData.txt")
-    data = read_data("Data.txt")
+    monkeys = read_data("TestData.txt")
+    #data = read_data("Data.txt")
     
-    inspect(data, 20)
+    inspect(monkeys, 10000)
+
+    inspects = [ x.inspects for x in monkeys ]
+
+    a = max(inspects)
+    inspects.remove(a)
+
+    b = max(inspects)
+
+    print('highest:')
+    print(a)
+    print(b)
+    print()
+    print('monkey business:')
+    print(a*b)
 
 if __name__=="__main__":
     main()
