@@ -1,3 +1,5 @@
+
+DEBUG = False
 class Monkey():
 
     def __init__(self, id, items, operation, test_value, true_monkey, false_monkey):
@@ -52,7 +54,8 @@ class Monkey():
         self.inspects += 1
         item = self.items.pop(0)
 
-        print('monkey [' + str(self.id) + '] inspects item: ' + str(item))
+        if DEBUG:
+            print('monkey [' + str(self.id) + '] inspects item: ' + str(item))
 
         # inspect
         item = self.operation(item)
@@ -64,13 +67,16 @@ class Monkey():
 
         monkey = self.test(item)
 
-        if monkey - self.true_monkey == 0:
-            print('\tis divisible: ' + str(self.true_monkey))
-        else:
-            print('\tnot divisible: ' + str(self.false_monkey))
+        if DEBUG:    
+            if monkey - self.true_monkey == 0:
+                print('\tis divisible: ' + str(self.true_monkey))
+            else:
+                print('\tnot divisible: ' + str(self.false_monkey))
 
         self.throw_to.append((monkey, item))
-        print('\tthrown to: ' + str(self.throw_to))
+        
+        if DEBUG:
+            print('\tthrown to: ' + str(self.throw_to))
 
     def has_throwable(self):
         return len(self.throw_to) > 0
@@ -80,7 +86,10 @@ class Monkey():
 
     def test(self, item):
         val = item % self.test_value
-        print('\t' + str(item) + ' div by ' + str(self.test_value) + ' = ' + str(val))
+
+        if DEBUG:
+            print('\t' + str(item) + ' div by ' + str(self.test_value) + ' = ' + str(val))
+            
         if val == 0:
             return self.true_monkey
         return self.false_monkey
